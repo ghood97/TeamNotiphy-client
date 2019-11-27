@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom'
 import Axios from 'axios'
 import apiUrl from '../../apiConfig'
 import formatDate from '../../formatDate'
+import './Post.scss'
+import { Button } from 'react-bootstrap'
 
 const Post = (props) => {
   const [post, setPost] = useState({ comments: [], created_at: '', id: null, text: '', title: '', user: {} })
@@ -16,6 +18,28 @@ const Post = (props) => {
       .catch(console.error)
   }, [])
 
+  const handleDelete = (event) => {
+    event.preventDefault()
+    Axios({
+      method: 'DELETE',
+      url: `${apiUrl}/posts/${props.match.params.id}`,
+      headers: {
+        Authorization: `Token token=${props.user.token}`
+      }
+    })
+      .then(res => {
+        props.alert({
+          heading: 'Deleted',
+          message: 'Post Deleted.',
+          variant: 'danger'
+        })
+      })
+      .then(() => {
+        props.history.push('/')
+      })
+      .catch(console.error)
+  }
+
   const formattedDate = formatDate(new Date(post.created_at))
 
   const commentJsx = post.comments.map(x => (
@@ -24,9 +48,15 @@ const Post = (props) => {
     </div>
   ))
 
+  const deleteJsx = (
+    <Button onClick={handleDelete} variant="danger">Delete</Button>
+  )
+
   const postJsx = (
     <div>
-      <h6>Created at: {formattedDate} | By: {post.user.email}</h6>
+      <h6 className="date-line">Created at: {formattedDate} | By: {post.user.email}</h6>
+      {props.user ? (props.user.id === post.user.id ? deleteJsx : '') : ''}
+      <hr />
       <h1>{post.title}</h1>
       <hr />
       <h4>{post.text}</h4>

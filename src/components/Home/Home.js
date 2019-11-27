@@ -9,47 +9,18 @@ const Home = (props) => {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    console.log('in useEffect')
-    fetchPosts()
-  }, [])
-
-  const fetchPosts = () => {
     Axios(`${apiUrl}/posts`)
       .then(res => {
-        console.log(res)
         setPosts(res.data.posts)
       })
       .catch(console.error)
-  }
-
-  const handleDelete = (event) => {
-    event.preventDefault()
-    const postId = event.target.getAttribute('data-id')
-    Axios({
-      method: 'DELETE',
-      url: `${apiUrl}/posts/${postId}`,
-      headers: {
-        Authorization: `Token token=${props.user.token}`
-      }
-    })
-      .then(res => {
-        props.alert({
-          heading: 'Deleted',
-          message: 'Post Deleted.',
-          variant: 'danger'
-        })
-      })
-      .then(() => {
-        fetchPosts()
-      })
-      .catch(console.error)
-  }
+  }, [])
 
   const postJsx = posts.map(post => {
-    const deleteBtnJsx = (
-      <Button data-id={post.id} onClick={handleDelete} size="sm" variant="danger" className="ml-2">Delete</Button>
-    )
     const date = new Date(post.created_at)
+    const postBtnJsx = (
+      <Link to={`/posts/${post.id}`}><Button size="sm" variant="info">Click to see comments</Button></Link>
+    )
     return (
       <Card bg="secondary" text="white" key={post.id} className="my-4 post-card">
         <Card.Header as="h5">{post.title}</Card.Header>
@@ -61,8 +32,7 @@ const Home = (props) => {
             {formatDate(date)}
           </div>
           <div className="ml-auto">
-            <Link to={`/posts/${post.id}`}><Button size="sm" variant="info">Click to see comments</Button></Link>
-            {props.user ? (props.user.id === post.user.id ? deleteBtnJsx : '') : ''}
+            {props.user ? postBtnJsx : ''}
           </div>
         </Card.Footer>
       </Card>
