@@ -4,10 +4,24 @@ import Axios from 'axios'
 import apiUrl from '../../apiConfig'
 import formatDate from '../../formatDate'
 import './Post.scss'
+import CommentModal from '../Comment/CommentModal'
 import { Button } from 'react-bootstrap'
 
 const Post = (props) => {
   const [post, setPost] = useState({ comments: [], created_at: '', id: null, text: '', title: '', user: {} })
+  const [show, setShow] = useState(false)
+  const [comment, setComment] = useState({ text: '', user_id: props.user.id, post_id: props.match.params.id })
+
+  const handleChange = (event) => {
+    event.persist()
+    setComment({ ...comment, [event.target.name]: event.target.value })
+  }
+
+  // for modal
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  // handleCommentSubmitHere!!!
 
   useEffect(() => {
     Axios(`${apiUrl}/posts/${props.match.params.id}`)
@@ -60,8 +74,12 @@ const Post = (props) => {
       <hr />
       <h4>{post.text}</h4>
       <hr />
-      <h5 className="font-weight-bold">Comments:</h5>
+      <div className="d-flex flex-row justify-content-between mr-auto">
+        <h5 className="font-weight-bold align-self-center">Comments</h5>
+        <Button onClick={handleShow} size="sm" variant="success" className="align-self-center">New</Button>
+      </div>
       {commentJsx}
+      <CommentModal post={post} comment={comment} handleChange={handleChange} handleClose={handleClose} show={show} />
     </div>
   )
 

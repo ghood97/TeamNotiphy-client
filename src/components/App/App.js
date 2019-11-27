@@ -11,6 +11,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import Post from '../Post/Post'
 import PostCreate from '../Post/PostCreate'
+// import CommentCreate from '../Comment/CommentCreate'
 
 class App extends Component {
   constructor () {
@@ -69,6 +70,9 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/create-post' render={() => (
             <PostCreate alert={this.alert} user={user} />
           )} />
+          {/* <AuthenticatedRoute user={user} path='/create-comment' render={() => (
+            <CommentCreate alert={this.alert} user={user} />
+          )} /> */}
         </main>
       </Fragment>
     )
