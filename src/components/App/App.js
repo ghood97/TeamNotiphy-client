@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
@@ -10,6 +10,7 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import Post from '../Post/Post'
+import PostCreate from '../Post/PostCreate'
 
 class App extends Component {
   constructor () {
@@ -51,6 +52,9 @@ class App extends Component {
             <SignIn alert={this.alert} setUser={this.setUser} />
           )} />
           <Route exact path='/' render={() => (
+            <Redirect to='/home'/>
+          )} />
+          <Route exact path='/home' render={() => (
             <Home alert={this.alert} user={user}/>
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
@@ -61,6 +65,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/posts/:id' render={() => (
             <Post alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-post' render={() => (
+            <PostCreate alert={this.alert} user={user} />
           )} />
         </main>
       </Fragment>

@@ -19,7 +19,7 @@ const Home = (props) => {
   const postJsx = posts.map(post => {
     const date = new Date(post.created_at)
     const postBtnJsx = (
-      <Link to={`/posts/${post.id}`}><Button size="sm" variant="info">Click to see comments</Button></Link>
+      <Link to={`/posts/${post.id}`}><Button size="sm" variant="info">Click to view post</Button></Link>
     )
     return (
       <Card bg="secondary" text="white" key={post.id} className="my-4 post-card">
