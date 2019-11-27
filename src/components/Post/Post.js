@@ -12,7 +12,6 @@ const Post = (props) => {
   useEffect(() => {
     Axios(`${apiUrl}/posts/${props.match.params.id}`)
       .then(res => {
-        console.log(res.data.post)
         setPost(res.data.post)
       })
       .catch(console.error)
