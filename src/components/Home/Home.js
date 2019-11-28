@@ -22,7 +22,7 @@ const Home = (props) => {
       <Link to={`/posts/${post.id}`}><Button size="sm" variant="info">Click to view post</Button></Link>
     )
     return (
-      <Card bg="secondary" text="white" key={post.id} className="my-4 post-card">
+      <Card bg="secondary" text="white" key={post.id} className="my-4 posts-card">
         <Card.Header as="h5">{post.title}</Card.Header>
         <Card.Body>
           <Card.Text>{post.text}</Card.Text>
@@ -32,7 +32,7 @@ const Home = (props) => {
             {formatDate(date)}
           </div>
           <div className="ml-auto">
-            {props.user ? postBtnJsx : ''}
+            {props.user ? postBtnJsx : null}
           </div>
         </Card.Footer>
       </Card>

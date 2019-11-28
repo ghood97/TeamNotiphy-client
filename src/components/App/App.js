@@ -4,6 +4,7 @@ import { Route, Redirect } from 'react-router-dom'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
 import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
@@ -11,7 +12,6 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import Post from '../Post/Post'
 import PostCreate from '../Post/PostCreate'
-// import CommentCreate from '../Comment/CommentCreate'
 
 class App extends Component {
   constructor () {
@@ -74,6 +74,7 @@ class App extends Component {
             <CommentCreate alert={this.alert} user={user} />
           )} /> */}
         </main>
+        <Footer />
       </Fragment>
     )
   }

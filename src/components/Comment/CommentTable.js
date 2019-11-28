@@ -6,20 +6,20 @@ import './CommentTable.scss'
 const CommentTable = (props) => {
   const commentJsx = props.comments.map(x => (
     <tr key={x.id}>
-      <td className="tableRow text-wrap text-break col-8">{x.text}</td>
-      <td className="tableRow text-right col-2">{x.user.email}</td>
+      <td className="font-weight-bold tableRow text-wrap text-break col-6">{x.text}</td>
+      <td className="font-weight-bold tableRow text-right col-4">{x.user.email}</td>
       {props.user.id === x.user.id
         ? <td className="text-right col-2">
           <Button
             data-comment-id={x.id}
             onClick={props.handleDelete}
             variant="danger"
-            className="comment-delete-btn align-top"
+            className="comment-delete-btn align-center"
           >
             Delete
           </Button>
         </td>
-        : ''}
+        : <td className="font-weight-bold tableRow no-delete-text text-center col-2">{'Can\'t delete'}</td>}
     </tr>
   ))
 

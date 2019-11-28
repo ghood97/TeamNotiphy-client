@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import Axios from 'axios'
 import apiUrl from '../../apiConfig'
@@ -6,7 +6,7 @@ import formatDate from '../../formatDate'
 import './Post.scss'
 import CommentModal from '../Comment/CommentModal'
 import CommentTable from '../Comment/CommentTable'
-import { Button, Container } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 
 const Post = (props) => {
   const [post, setPost] = useState({ comments: [], created_at: '', id: null, text: '', title: '', user: {} })
@@ -98,20 +98,25 @@ const Post = (props) => {
   )
 
   const postJsx = (
-    <Container fluid="true">
-      <div className="text-right">
-        {props.user ? (props.user.id === post.user.id ? deleteJsx : '') : ''}
-      </div>
-      <h6 className="date-line">Created at: {formattedDate} | By: {post.user.email}</h6>
-      <h1>{post.title}</h1>
-      <hr />
-      <h6>{post.text}</h6>
-      <hr />
-      <div className="d-flex flex-row justify-content-between mr-auto">
-        <h5 className="font-weight-bold align-self-center">Comments</h5>
-        <Button onClick={handleShow} size="sm" variant="success" className="align-self-center">New</Button>
-      </div>
-      <CommentTable user={props.user} handleDelete={handleCommentDelete} comments={post.comments}/>
+    <Fragment>
+      <Card bg="light" text="black" className="my-4 post-card">
+        <Card.Header>
+          <div className="text-right">
+            {props.user ? (props.user.id === post.user.id ? deleteJsx : null) : null}
+          </div>
+          <h6 className="date-line">Created at: {formattedDate} | By: {post.user.email}</h6>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text>{post.text}</Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <div className="d-flex flex-row justify-content-between mr-auto">
+            <h5 className="font-weight-bolder align-self-center">Comments</h5>
+            <Button onClick={handleShow} size="sm" variant="success" className="align-self-center">New</Button>
+          </div>
+          <CommentTable user={props.user} handleDelete={handleCommentDelete} comments={post.comments}/>
+        </Card.Footer>
+      </Card>
       <CommentModal
         post={post}
         comment={comment}
@@ -120,7 +125,7 @@ const Post = (props) => {
         handleCommentSubmit={handleCommentSubmit}
         show={show}
       />
-    </Container>
+    </Fragment>
   )
 
   return (
