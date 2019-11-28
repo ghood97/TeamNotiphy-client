@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { Table, Button } from 'react-bootstrap'
+import { Table, Button, ButtonGroup } from 'react-bootstrap'
 import './CommentTable.scss'
 
 const CommentTable = (props) => {
@@ -10,14 +10,25 @@ const CommentTable = (props) => {
       <td className="font-weight-bold tableRow text-right col-4">{x.user.email}</td>
       {props.user.id === x.user.id
         ? <td className="text-right col-2">
-          <Button
-            data-comment-id={x.id}
-            onClick={props.handleDelete}
-            variant="danger"
-            className="comment-delete-btn align-center"
-          >
-            Delete
-          </Button>
+          <ButtonGroup vertical>
+            <Button
+              size="sm"
+              variant="info"
+              data-comment-id={x.id}
+              className="comment-btn-group"
+              onClick={props.handleEditShow}>
+              Edit
+            </Button>
+            <Button
+              size="sm"
+              data-comment-id={x.id}
+              onClick={props.handleDelete}
+              variant="danger"
+              className="comment-btn-group"
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
         </td>
         : <td className="font-weight-bold tableRow no-delete-text text-center col-2">{'Can\'t delete'}</td>}
     </tr>

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Route, Redirect } from 'react-router-dom'
+import './App.scss'
 
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
@@ -12,6 +13,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import Post from '../Post/Post'
 import PostCreate from '../Post/PostCreate'
+import PostEdit from '../Post/PostEdit.js'
 
 class App extends Component {
   constructor () {
@@ -37,14 +39,16 @@ class App extends Component {
     return (
       <Fragment>
         <Header user={user} />
-        {alerts.map((alert, index) => (
-          <AutoDismissAlert
-            key={index}
-            heading={alert.heading}
-            variant={alert.variant}
-            message={alert.message}
-          />
-        ))}
+        <div className="alerts-container">
+          {alerts.map((alert, index) => (
+            <AutoDismissAlert
+              key={index}
+              heading={alert.heading}
+              variant={alert.variant}
+              message={alert.message}
+            />
+          ))}
+        </div>
         <main className="container my-4">
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
@@ -64,15 +68,15 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/posts/:id' render={() => (
+          <AuthenticatedRoute user={user} exact path='/posts/:id' render={() => (
             <Post alert={this.alert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/create-post' render={() => (
             <PostCreate alert={this.alert} user={user} />
           )} />
-          {/* <AuthenticatedRoute user={user} path='/create-comment' render={() => (
-            <CommentCreate alert={this.alert} user={user} />
-          )} /> */}
+          <AuthenticatedRoute user={user} path='/posts/:id/edit' render={() => (
+            <PostEdit alert={this.alert} user={user} />
+          )} />
         </main>
         <Footer />
       </Fragment>

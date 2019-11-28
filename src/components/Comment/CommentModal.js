@@ -5,10 +5,10 @@ const CommentModal = (props) => {
   return (
     <Modal show={props.show} onHide={props.handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>New Comment on {`"${props.post.title}"`}</Modal.Title>
+        <Modal.Title>{`${props.header}"${props.post.title}"`}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={props.handleCommentSubmit}>
+        <Form onSubmit={props.action}>
           <Form.Group controlId="text">
             <Form.Label>Write your comment below</Form.Label>
             <Form.Control
