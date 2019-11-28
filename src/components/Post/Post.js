@@ -2,18 +2,19 @@ import React, { useEffect, useState, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import Axios from 'axios'
 import apiUrl from '../../apiConfig'
+import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import formatDate from '../../formatDate'
 import './Post.scss'
 import CommentModal from '../Comment/CommentModal'
 import CommentTable from '../Comment/CommentTable'
+import CommentEdit from '../Comment/CommentEdit'
 import { Button, ButtonGroup, Card } from 'react-bootstrap'
 
 const Post = (props) => {
   const [post, setPost] = useState({ comments: [], created_at: '', id: null, text: '', title: '', user: {} })
-  const [showCreate, setShowCreate] = useState(false)
-  const [showEdit, setShowEdit] = useState(false)
+  const [show, setShow] = useState(false)
   const [comment, setComment] = useState({ text: '', user_id: props.user.id, post_id: props.match.params.id })
-  const [commentId, setCommentId] = useState(null)
+  const [, setCommentUpdated] = useState(false)
 
   useEffect(() => {
     Axios(`${apiUrl}/posts/${props.match.params.id}`)
@@ -29,16 +30,8 @@ const Post = (props) => {
   }
 
   // for comment create modal
-  const handleCreateClose = () => setShowCreate(false)
-  const handleCreateShow = () => setShowCreate(true)
-
-  // for comment edit modal
-  const handleEditClose = () => setShowEdit(false)
-  const handleEditShow = (event) => {
-    event.persist()
-    setShowEdit(true)
-    setCommentId(event.target.dataset.commentId)
-  }
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   // handleSubmit for comment-create modal
   const handleCommentSubmit = (event) => {
@@ -46,25 +39,6 @@ const Post = (props) => {
     Axios({
       method: 'POST',
       url: `${apiUrl}/comments`,
-      headers: {
-        Authorization: `Token token=${props.user.token}`
-      },
-      data: { comment }
-    })
-      .then(res => {
-        Axios(`${apiUrl}/posts/${props.match.params.id}`)
-          .then(res => {
-            setPost(res.data.post)
-          })
-      })
-      .catch(console.error)
-  }
-
-  const handleCommentEdit = (event) => {
-    event.preventDefault()
-    Axios({
-      method: 'PATCH',
-      url: `${apiUrl}/comments/${commentId}`,
       headers: {
         Authorization: `Token token=${props.user.token}`
       },
@@ -125,7 +99,7 @@ const Post = (props) => {
   const deleteJsx = (
     <div className="d-flex flex-column align-items-end">
       <ButtonGroup vertical>
-        <Button href={`#posts/${props.match.params.id}/edit`} size="sm" variant="info">Edit</Button>
+        <Button href={`#edit-post/${props.match.params.id}`} size="sm" variant="info">Edit</Button>
         <Button onClick={handleDelete} size="sm" variant="danger">Delete</Button>
       </ButtonGroup>
     </div>
@@ -149,33 +123,26 @@ const Post = (props) => {
         <Card.Footer>
           <div className="d-flex flex-row justify-content-between mr-auto">
             <h5 className="font-weight-bolder align-self-center">Comments</h5>
-            <Button onClick={handleCreateShow} size="sm" variant="success" className="align-self-center">New</Button>
+            <Button onClick={handleShow} size="sm" variant="success" className="align-self-center">New</Button>
           </div>
           <CommentTable
             user={props.user}
+            post={post}
             handleDelete={handleCommentDelete}
-            handleEditShow={handleEditShow}
             comments={post.comments}
           />
         </Card.Footer>
       </Card>
+      <AuthenticatedRoute user={props.user} path='/posts/:id/:commentId/edit' render={() => (
+        <CommentEdit setUpdated={setCommentUpdated} alert={props.alert} user={props.user} post={post} />
+      )} />
       <CommentModal
-        header='New comment on '
-        action={handleCommentSubmit}
+        handleSubmit={handleCommentSubmit}
         post={post}
         comment={comment}
         handleChange={handleChange}
-        handleClose={handleCreateClose}
-        show={showCreate}
-      />
-      <CommentModal
-        header="Update your comment on "
-        action={handleCommentEdit}
-        post={post}
-        comment={comment}
-        handleChange={handleChange}
-        handleClose={handleEditClose}
-        show={showEdit}
+        handleClose={handleClose}
+        show={show}
       />
     </Fragment>
   )

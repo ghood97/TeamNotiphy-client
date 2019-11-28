@@ -8,7 +8,7 @@ const CommentModal = (props) => {
         <Modal.Title>{`${props.header}"${props.post.title}"`}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={props.action}>
+        <Form onSubmit={props.handleSubmit}>
           <Form.Group controlId="text">
             <Form.Label>Write your comment below</Form.Label>
             <Form.Control

@@ -12,11 +12,12 @@ const CommentTable = (props) => {
         ? <td className="text-right col-2">
           <ButtonGroup vertical>
             <Button
+              href={`#posts/${props.match.params.id}/${x.id}/edit`}
               size="sm"
               variant="info"
               data-comment-id={x.id}
               className="comment-btn-group"
-              onClick={props.handleEditShow}>
+            >
               Edit
             </Button>
             <Button
