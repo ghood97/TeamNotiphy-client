@@ -20,7 +20,13 @@ const Post = (props) => {
       .then(res => {
         setPost(res.data.post)
       })
-      .catch(console.error)
+      .catch(() => {
+        props.alert({
+          heading: 'Oops',
+          message: 'We couldn\'t find this post. Click \'Home\' to go back to the home page.',
+          variant: 'danger'
+        })
+      })
   }, [])
 
   const handleChange = (event) => {
@@ -29,15 +35,34 @@ const Post = (props) => {
   }
 
   // for comment create modal
-  const handleCreateClose = () => setShowCreate(false)
+  const handleCreateClose = () => {
+    setShowCreate(false)
+    setComment({ text: '', user_id: props.user.id, post_id: props.match.params.id })
+  }
   const handleCreateShow = () => setShowCreate(true)
 
   // for comment edit modal
-  const handleEditClose = () => setShowEdit(false)
+  const handleEditClose = () => {
+    setShowEdit(false)
+    setComment({ text: '', user_id: props.user.id, post_id: props.match.params.id })
+  }
   const handleEditShow = (event) => {
     event.persist()
-    setShowEdit(true)
-    setCommentId(event.target.dataset.commentId)
+    const id = event.target.dataset.commentId
+    Axios(`${apiUrl}/comments/${id}`)
+      .then(res => {
+        setComment(res.data.comment)
+        setCommentId(res.data.comment.id)
+        setShowEdit(true)
+      })
+      .catch(() => {
+        handleEditClose()
+        props.alert({
+          heading: 'Oops',
+          message: 'We couldn\'t find your comment. Try again.',
+          variant: 'Danger'
+        })
+      })
   }
 
   // handleSubmit for comment-create modal
@@ -57,7 +82,21 @@ const Post = (props) => {
             setPost(res.data.post)
           })
       })
-      .catch(console.error)
+      .then(() => {
+        props.alert({
+          heading: 'Success',
+          message: 'Commented',
+          variant: 'success'
+        })
+      })
+      .catch(() => {
+        handleCreateClose()
+        props.alert({
+          heading: 'Oops',
+          message: 'Can\t create a comment at this time. Try again.',
+          variant: 'danger'
+        })
+      })
   }
 
   const handleCommentEdit = (event) => {
@@ -76,7 +115,20 @@ const Post = (props) => {
             setPost(res.data.post)
           })
       })
-      .catch(console.error)
+      .then(() => {
+        props.alert({
+          heading: 'Success',
+          message: 'Comment edited',
+          variant: 'success'
+        })
+      })
+      .catch(() => {
+        props.alert({
+          heading: 'Oops',
+          message: 'Can\'t edit your comment. Try again.',
+          variant: 'danger'
+        })
+      })
   }
 
   const handleCommentDelete = (event) => {
@@ -95,7 +147,20 @@ const Post = (props) => {
             setPost(res.data.post)
           })
       })
-      .catch(console.error)
+      .then(() => {
+        props.alert({
+          heading: 'Deleted',
+          message: 'Comment deleted',
+          variant: 'danger'
+        })
+      })
+      .catch(() => {
+        props.alert({
+          heading: 'Oops',
+          message: 'Couldn\'t delete your comment. Try Again.',
+          variant: 'danger'
+        })
+      })
   }
 
   const handleDelete = (event) => {
@@ -107,7 +172,7 @@ const Post = (props) => {
         Authorization: `Token token=${props.user.token}`
       }
     })
-      .then(res => {
+      .then(() => {
         props.alert({
           heading: 'Deleted',
           message: 'Post Deleted.',
@@ -117,7 +182,13 @@ const Post = (props) => {
       .then(() => {
         props.history.push('/')
       })
-      .catch(console.error)
+      .catch(() => {
+        props.alert({
+          heading: 'Oops',
+          message: 'Couldn\'t delete your post. Try again.',
+          variant: 'danger'
+        })
+      })
   }
 
   const formattedDate = formatDate(new Date(post.created_at))

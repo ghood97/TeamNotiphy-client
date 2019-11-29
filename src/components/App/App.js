@@ -47,7 +47,7 @@ class App extends Component {
               variant={alert.variant}
               message={alert.message}
             />
-          ))}
+          )).reverse()}
         </div>
         <main className="container my-4">
           <Route path='/sign-up' render={() => (

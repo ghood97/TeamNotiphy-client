@@ -13,7 +13,13 @@ const Home = (props) => {
       .then(res => {
         setPosts(res.data.posts)
       })
-      .catch(console.error)
+      .catch(() => {
+        props.alert({
+          heading: 'Oops',
+          message: 'Something went wrong. Try restarting your browser.',
+          variant: 'danger'
+        })
+      })
   }, [])
 
   const postJsx = posts.map(post => {

@@ -12,10 +12,15 @@ const PostEdit = (props) => {
   useEffect(() => {
     Axios(`${apiUrl}/posts/${props.match.params.id}`)
       .then(res => {
-        console.log(res)
         setPost(res.data.post)
       })
-      .catch(console.error)
+      .catch(() => {
+        props.alert({
+          heading: 'Oops',
+          message: 'Something went wrong. Try Again.',
+          variant: 'danger'
+        })
+      })
   }, [])
 
   const handleChange = (event) => {
