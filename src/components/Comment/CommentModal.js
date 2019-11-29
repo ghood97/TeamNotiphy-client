@@ -23,7 +23,7 @@ const CommentModal = (props) => {
             />
           </Form.Group>
           <Container fluid="true" className="d-flex flex-row justify-content-end">
-            <Button size="md" variant="primary"type="submit" onClick={props.handleClose}>Submit</Button>
+            <Button size="md" variant="primary"type="submit">Submit</Button>
             <Button size="md" variant="secondary" onClick={props.handleClose} className="ml-2">Close</Button>
           </Container>
         </Form>

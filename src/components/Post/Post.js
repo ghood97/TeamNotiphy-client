@@ -49,7 +49,13 @@ const Post = (props) => {
   const handleEditShow = (event) => {
     event.persist()
     const id = event.target.dataset.commentId
-    Axios(`${apiUrl}/comments/${id}`)
+    Axios({
+      method: 'GET',
+      url: `${apiUrl}/comments/${id}`,
+      headers: {
+        Authorization: `Token token=${props.user.token}`
+      }
+    })
       .then(res => {
         setComment(res.data.comment)
         setCommentId(res.data.comment.id)
@@ -83,6 +89,7 @@ const Post = (props) => {
           })
       })
       .then(() => {
+        handleCreateClose()
         props.alert({
           heading: 'Success',
           message: 'Commented',
@@ -116,6 +123,7 @@ const Post = (props) => {
           })
       })
       .then(() => {
+        handleEditClose()
         props.alert({
           heading: 'Success',
           message: 'Comment edited',
