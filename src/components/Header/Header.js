@@ -24,7 +24,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar sticky="top" bg="warning" variant="light" expand="md">
+  <Navbar collapseOnSelect sticky="top" bg="warning" variant="light" expand="md">
     <Navbar.Brand href="#home">
       Notiphy
     </Navbar.Brand>
