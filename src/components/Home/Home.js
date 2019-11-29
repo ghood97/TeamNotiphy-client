@@ -15,9 +15,9 @@ const Home = (props) => {
       })
       .catch(() => {
         props.alert({
-          heading: 'Oops',
-          message: 'Something went wrong. Try restarting your browser.',
-          variant: 'danger'
+          heading: 'Loading...',
+          message: '',
+          variant: 'warning'
         })
       })
   }, [])
