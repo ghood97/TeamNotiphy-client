@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import './App.scss'
 
@@ -37,7 +37,7 @@ class App extends Component {
     const { alerts, user } = this.state
 
     return (
-      <Fragment>
+      <div className="page-container">
         <Header user={user} />
         <div className="alerts-container">
           {alerts.map((alert, index) => (
@@ -78,8 +78,8 @@ class App extends Component {
             <PostEdit alert={this.alert} user={user} />
           )} />
         </main>
-        <Footer />
-      </Fragment>
+        <Footer/>
+      </div>
     )
   }
 }
