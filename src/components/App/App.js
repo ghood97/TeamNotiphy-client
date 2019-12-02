@@ -14,6 +14,8 @@ import Home from '../Home/Home'
 import Post from '../Post/Post'
 import PostCreate from '../Post/PostCreate'
 import PostEdit from '../Post/PostEdit.js'
+import Schedule from '../Schedule/Schedule'
+import ScheduleCreate from '../Schedule/ScheduleCreate'
 
 class App extends Component {
   constructor () {
@@ -62,6 +64,9 @@ class App extends Component {
           <Route exact path='/home' render={() => (
             <Home alert={this.alert} user={user}/>
           )} />
+          <Route exact path='/schedule' render={() => (
+            <Schedule alert={this.alert} user={user}/>
+          )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
           )} />
@@ -76,6 +81,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/posts/:id/edit' render={() => (
             <PostEdit alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-event' render={() => (
+            <ScheduleCreate alert={this.alert} user={user} />
           )} />
         </main>
         <Footer/>
