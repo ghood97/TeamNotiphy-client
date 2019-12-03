@@ -16,7 +16,13 @@ const Post = (props) => {
   const [commentId, setCommentId] = useState(null)
 
   useEffect(() => {
-    Axios(`${apiUrl}/posts/${props.match.params.id}`)
+    Axios({
+      url: `${apiUrl}/posts/${props.match.params.id}`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${props.user.token}`
+      }
+    })
       .then(res => {
         setPost(res.data.post)
       })
@@ -83,7 +89,13 @@ const Post = (props) => {
       data: { comment }
     })
       .then(res => {
-        Axios(`${apiUrl}/posts/${props.match.params.id}`)
+        Axios({
+          url: `${apiUrl}/posts/${props.match.params.id}`,
+          method: 'GET',
+          headers: {
+            'Authorization': `Token token=${props.user.token}`
+          }
+        })
           .then(res => {
             setPost(res.data.post)
           })
@@ -117,7 +129,13 @@ const Post = (props) => {
       data: { comment }
     })
       .then(res => {
-        Axios(`${apiUrl}/posts/${props.match.params.id}`)
+        Axios({
+          url: `${apiUrl}/posts/${props.match.params.id}`,
+          method: 'GET',
+          headers: {
+            'Authorization': `Token token=${props.user.token}`
+          }
+        })
           .then(res => {
             setPost(res.data.post)
           })
@@ -150,7 +168,13 @@ const Post = (props) => {
       }
     })
       .then(res => {
-        Axios(`${apiUrl}/posts/${props.match.params.id}`)
+        Axios({
+          url: `${apiUrl}/posts/${props.match.params.id}`,
+          method: 'GET',
+          headers: {
+            'Authorization': `Token token=${props.user.token}`
+          }
+        })
           .then(res => {
             setPost(res.data.post)
           })
