@@ -1,19 +1,18 @@
 import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
-import DatePicker from 'react-date-picker-cs'
 
 const ScheduleForm = (props) => {
   return (
     <Form onSubmit={props.handleSubmit}>
       <Form.Group controlId="date">
         <Form.Label>Date</Form.Label>
-        <DatePicker
+        <Form.Control
+          required
           name="date"
-          onChange={props.handleChange}
-          locale='en'
           value={props.event.date}
-
+          type="datetime-local"
+          onChange={props.handleChange}
         />
       </Form.Group>
       <Form.Group controlId="opponent">
@@ -42,9 +41,9 @@ const ScheduleForm = (props) => {
         <Form.Label>{'My team\'s score'}</Form.Label>
         <Form.Control
           required
-          name="ownScore"
-          value={props.event.ownScore}
-          type="text"
+          name="own_score"
+          value={props.event.own_score}
+          type="number"
           placeholder="Own Score"
           onChange={props.handleChange}
         />
@@ -53,9 +52,9 @@ const ScheduleForm = (props) => {
         <Form.Label>{'Opponent\'s Score'}</Form.Label>
         <Form.Control
           required
-          name="oppScore"
-          value={props.event.oppScore}
-          type="text"
+          name="opp_score"
+          value={props.event.opp_score}
+          type="number"
           placeholder="Oppoenent's Score"
           onChange={props.handleChange}
         />

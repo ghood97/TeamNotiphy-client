@@ -11,9 +11,7 @@ const Schedule = (props) => {
   useEffect(() => {
     Axios(`${apiUrl}/events`)
       .then(res => {
-        console.log(res)
         setEvents(res.data.events)
-        console.log(events)
       })
       .catch(console.error)
   }, [])
@@ -24,8 +22,8 @@ const Schedule = (props) => {
 
   return (
     <div>
-      <Link to='/create-event'><Button>New Event</Button></Link>
-      <ScheduleTable events={events} />
+      <Link to='/create-event'><Button variant='success'>New Event</Button></Link>
+      <ScheduleTable user={props.user} events={events} />
     </div>
   )
 }

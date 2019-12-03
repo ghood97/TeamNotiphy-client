@@ -10,8 +10,8 @@ const ScheduleCreate = (props) => {
     opponent: '',
     location: '',
     result: '',
-    ownScore: null,
-    oppScore: null,
+    own_score: '',
+    opp_score: '',
     user_id: props.user.id
   })
 
@@ -21,13 +21,14 @@ const ScheduleCreate = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    console.log(eventItem)
     Axios({
       method: 'POST',
       url: `${apiUrl}/events`,
       headers: {
         Authorization: `Token token=${props.user.token}`
       },
-      data: { eventItem }
+      data: { event: eventItem }
     })
       .then(res => {
         props.alert({
@@ -44,7 +45,7 @@ const ScheduleCreate = (props) => {
     <ScheduleForm
       handleSubmit={handleSubmit}
       handleChange={handleChange}
-      event={event}
+      event={eventItem}
       cancelPath="/schedule"
     />
   )
