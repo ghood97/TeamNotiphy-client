@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap'
 import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import './DayPicker.scss'
+import './Schedule.scss'
 import ScheduleModal from './ScheduleModal'
 import useWindowDimensions from '../../useWindowDimensions'
 
@@ -91,9 +92,11 @@ const Schedule = (props) => {
 
   const modalJsx = (
     <ScheduleModal
+      user={props.user}
       date={selectedDate}
       events={events}
       handleClose={handleClose}
+      handleDelete={handleDelete}
       show={show}
     />
   )
@@ -105,9 +108,6 @@ const Schedule = (props) => {
       return (
         <div>
           <div className="d-flex flex-row justify-content-center">
-            {props.user ? <Link to='/create-event'><Button variant='success'>New Event</Button></Link> : null}
-          </div>
-          <div className="d-flex flex-row justify-content-center">
             <DayPicker
               className="day-picker"
               modifiers={modifiers}
@@ -115,6 +115,9 @@ const Schedule = (props) => {
               onDayClick={handleDayClick}
             />
             {modalJsx}
+          </div>
+          <div className="d-flex flex-row justify-content-center mt-3">
+            {props.user ? <Link to='/create-event'><Button variant='success'>New Event</Button></Link> : null}
           </div>
         </div>
       )
