@@ -7,6 +7,7 @@ import ScheduleForm from './ScheduleForm'
 const ScheduleCreate = (props) => {
   const [eventItem, setEvent] = useState({
     date: new Date(),
+    date_formatted: '',
     opponent: '',
     location: '',
     result: '',
@@ -21,7 +22,6 @@ const ScheduleCreate = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(eventItem)
     Axios({
       method: 'POST',
       url: `${apiUrl}/events`,
@@ -46,7 +46,8 @@ const ScheduleCreate = (props) => {
       handleSubmit={handleSubmit}
       handleChange={handleChange}
       event={eventItem}
-      cancelPath="/schedule"
+      actionText='Submit'
+      cancelPath='#schedule'
     />
   )
 }

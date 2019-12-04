@@ -16,6 +16,7 @@ import PostCreate from '../Post/PostCreate'
 import PostEdit from '../Post/PostEdit.js'
 import Schedule from '../Schedule/Schedule'
 import ScheduleCreate from '../Schedule/ScheduleCreate'
+import ScheduleEdit from '../Schedule/ScheduleEdit'
 
 class App extends Component {
   constructor () {
@@ -84,6 +85,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/create-event' render={() => (
             <ScheduleCreate alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/events/:id/edit' render={() => (
+            <ScheduleEdit alert={this.alert} user={user} />
           )} />
         </main>
         <Footer/>

@@ -21,26 +21,26 @@ const Schedule = (props) => {
     // checks for ownership and displays edit and delete buttons
     return (
       <tr key={x.id}>
-        <td className='text-center text-wrap'>{x.day}</td>
-        <td className='text-center text-wrap'>{x.date}</td>
-        <td className='text-center text-wrap'>{x.opponent}</td>
-        <td className='text-center text-wrap'>{x.location}</td>
-        <td className='text-center text-wrap'>{x.time}</td>
+        <td className='text-center text-wrap align-middle'>{x.day}</td>
+        <td className='text-center text-wrap align-middle'>{x.date_formatted}</td>
+        <td className='text-center text-wrap align-middle'>{x.opponent}</td>
+        <td className='text-center text-wrap align-middle'>{x.location}</td>
+        <td className='text-center text-wrap align-middle'>{x.time}</td>
         <td className={`${result} text-center`}>{x.own_score}<br/>--<br/>{x.opp_score}</td>
         {props.user && props.user.id === x.user_id
-          ? <td className="text-right">
+          ? <td className="text-center">
             <ButtonGroup vertical>
               <Button
+                href={`#events/${x.id}/edit`}
                 size="sm"
                 variant="info"
                 data-comment-id={x.id}
-                className="schedule-btn-group"
-                onClick={props.handleEditShow}>
+                className="schedule-btn-group">
                 Edit
               </Button>
               <Button
                 size="sm"
-                data-comment-id={x.id}
+                data-event-id={x.id}
                 onClick={props.handleDelete}
                 variant="danger"
                 className="schedule-btn-group"
@@ -60,12 +60,12 @@ const Schedule = (props) => {
       <Table variant="dark" striped bordered hover size="sm" responsive>
         <thead>
           <tr>
-            <th>Day</th>
-            <th>Date</th>
-            <th>Opponent</th>
-            <th>Location</th>
-            <th>Time</th>
-            <th>Score</th>
+            <th className='text-center'>Day</th>
+            <th className='text-center'>Date</th>
+            <th className='text-center'>Opponent</th>
+            <th className='text-center'>Location</th>
+            <th className='text-center'>Time</th>
+            <th className='text-center'>Score</th>
           </tr>
         </thead>
         <tbody>

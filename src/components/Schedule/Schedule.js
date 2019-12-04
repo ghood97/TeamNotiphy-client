@@ -16,14 +16,52 @@ const Schedule = (props) => {
       .catch(console.error)
   }, [])
 
+  const handleDelete = (event) => {
+    event.preventDefault()
+    const eventId = event.target.dataset.eventId
+    Axios({
+      method: 'DELETE',
+      url: `${apiUrl}/events/${eventId}`,
+      headers: {
+        Authorization: `Token token=${props.user.token}`
+      }
+    })
+      .then(res => {
+        Axios({
+          url: `${apiUrl}/events`,
+          method: 'GET',
+          headers: {
+            'Authorization': `Token token=${props.user.token}`
+          }
+        })
+          .then(res => {
+            setEvents(res.data.events)
+          })
+      })
+      .then(() => {
+        props.alert({
+          heading: 'Deleted',
+          message: 'Event deleted',
+          variant: 'danger'
+        })
+      })
+      .catch(() => {
+        props.alert({
+          heading: 'Oops',
+          message: 'Couldn\'t delete your event. Try Again.',
+          variant: 'danger'
+        })
+      })
+  }
+
   if (events === []) {
     return <h1>Loading...</h1>
   }
 
   return (
     <div>
-      <Link to='/create-event'><Button variant='success'>New Event</Button></Link>
-      <ScheduleTable user={props.user} events={events} />
+      {props.user ? <Link to='/create-event'><Button variant='success'>New Event</Button></Link> : null}
+      <ScheduleTable user={props.user} events={events} handleDelete={handleDelete}/>
     </div>
   )
 }
