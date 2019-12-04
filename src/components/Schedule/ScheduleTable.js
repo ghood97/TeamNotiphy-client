@@ -56,7 +56,9 @@ const Schedule = (props) => {
 
   return (
     <Fragment>
-      <br /><p className="mt-3 mb-0 px-2 legend"><small><span className="win">Green</span> = win<br/><span className="loss">Red</span> = loss<br/><span className="tie">Yellow</span> = tie</small></p>
+      <div className="d-flex flex-row justify-content-end">
+        <br /><p className="mt-3 mb-0 px-2 legend"><small><span className="win">Green</span> = win<br/><span className="loss">Red</span> = loss<br/><span className="tie">Yellow</span> = tie</small></p>
+      </div>
       <Table variant="dark" striped bordered hover size="sm" responsive>
         <thead>
           <tr>

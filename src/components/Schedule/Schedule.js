@@ -4,9 +4,22 @@ import Axios from 'axios'
 import apiUrl from '../../apiConfig'
 import ScheduleTable from './ScheduleTable'
 import { Button } from 'react-bootstrap'
+import DayPicker from 'react-day-picker'
+import 'react-day-picker/lib/style.css'
+import './DayPicker.scss'
+import ScheduleModal from './ScheduleModal'
+import useWindowDimensions from '../../useWindowDimensions'
 
 const Schedule = (props) => {
+  const { width } = useWindowDimensions()
   const [events, setEvents] = useState([])
+  const [selectedDate, setSelectedDate] = useState()
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => {
+    setShow(false)
+  }
+  const handleShow = () => setShow(true)
 
   useEffect(() => {
     Axios(`${apiUrl}/events`)
@@ -15,6 +28,13 @@ const Schedule = (props) => {
       })
       .catch(console.error)
   }, [])
+
+  const handleDayClick = (day) => {
+    setSelectedDate(day)
+    if (event.target.classList.contains('DayPicker-Day--highlighted')) {
+      handleShow()
+    }
+  }
 
   const handleDelete = (event) => {
     event.preventDefault()
@@ -54,16 +74,63 @@ const Schedule = (props) => {
       })
   }
 
-  if (events === []) {
-    return <h1>Loading...</h1>
+  // highlights all event dates in green on calendar
+  const datesToHighlight = []
+  events.forEach(x => {
+    const date = new Date(x.date)
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const day = date.getDate()
+    datesToHighlight.push(new Date(year, month, day))
+  })
+
+  // object for DayPicker where highlight will make the date a different color
+  const modifiers = {
+    highlighted: datesToHighlight
   }
 
-  return (
-    <div>
-      {props.user ? <Link to='/create-event'><Button variant='success'>New Event</Button></Link> : null}
-      <ScheduleTable user={props.user} events={events} handleDelete={handleDelete}/>
-    </div>
+  const modalJsx = (
+    <ScheduleModal
+      date={selectedDate}
+      events={events}
+      handleClose={handleClose}
+      show={show}
+    />
   )
+
+  if (width <= 576) {
+    if (events === []) {
+      return <h1>Loading...</h1>
+    } else {
+      return (
+        <div>
+          <div className="d-flex flex-row justify-content-center">
+            {props.user ? <Link to='/create-event'><Button variant='success'>New Event</Button></Link> : null}
+          </div>
+          <div className="d-flex flex-row justify-content-center">
+            <DayPicker
+              className="day-picker"
+              modifiers={modifiers}
+              selectedDays={selectedDate}
+              onDayClick={handleDayClick}
+            />
+            {modalJsx}
+          </div>
+        </div>
+      )
+    }
+  } else {
+    if (events === []) {
+      return <h1>Loading...</h1>
+    } else {
+      return (
+        <div>
+          {props.user ? <Link to='/create-event'><Button variant='success'>New Event</Button></Link> : null}
+          <ScheduleTable user={props.user} events={events} handleDelete={handleDelete}/>
+        </div>
+      )
+    }
+  }
 }
 
 export default withRouter(Schedule)
