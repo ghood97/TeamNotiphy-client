@@ -31,7 +31,7 @@ const alwaysOptions = (
 const Header = ({ user }) => (
   <Navbar collapseOnSelect sticky="top" style={headerStyle} variant="light" expand="md">
     <Navbar.Brand href="#home">
-      Notiphy
+      TeamNotiphy
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
