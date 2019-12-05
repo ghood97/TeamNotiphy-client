@@ -110,6 +110,7 @@ const Schedule = (props) => {
     } else {
       return (
         <div>
+          <h5 className='text-center'><em>You have events on the dates highlighed in <span style={{ color: 'green', fontWeight: 'bold' }}>green</span></em></h5>
           <div className="d-flex flex-row justify-content-center">
             <DayPicker
               className="day-picker"
