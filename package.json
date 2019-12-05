@@ -1,6 +1,6 @@
 {
-  "name": "notiphy-client",
-  "homepage": "https://ghood97.github.io/notiphy-client",
+  "name": "teamNotiphy-client",
+  "homepage": "https://ghood97.github.io/TeamNotiphy-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
