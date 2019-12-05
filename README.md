@@ -1,12 +1,12 @@
-# Notiphy client
+# TeamNotiphy client
 
 This application allows sports teams to communicate with each other and with other members of the organization. You can also keep track of your record and upcoming events. The inspiration for this project came from the Needham High School wrestling team. As a coach of this team, I have been searching for a better way to communicate with the athletes and their parents. I couldn't find one so I made my own!
 
 ## Links
 
-- [Back-end Repo](https://github.com/ghood97/notiphy-api)
-- [Deployed API](https://notiphy-api.herokuapp.com/)
-- [Deployed Client](https://ghood97.github.io/notiphy-client/)
+- [Back-end Repo](https://github.com/ghood97/TeamNotiphy-api)
+- [Deployed API](https://team-notiphy-api.herokuapp.com/)
+- [Deployed Client](https://ghood97.github.io/TeamNotiphy-client/)
 
 ## Setup Steps
 
