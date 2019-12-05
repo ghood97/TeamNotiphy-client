@@ -66,6 +66,9 @@ const Schedule = (props) => {
           variant: 'danger'
         })
       })
+      .then(() => {
+        handleClose()
+      })
       .catch(() => {
         props.alert({
           heading: 'Oops',

@@ -2,6 +2,10 @@ import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
+const headerStyle = {
+  backgroundColor: '#FFDF00'
+}
+
 const authenticatedOptions = (
   <Fragment>
     <Nav.Link href="#create-post">New Post</Nav.Link>
@@ -25,7 +29,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar collapseOnSelect sticky="top" bg="warning" variant="light" expand="md">
+  <Navbar collapseOnSelect sticky="top" style={headerStyle} variant="light" expand="md">
     <Navbar.Brand href="#home">
       Notiphy
     </Navbar.Brand>

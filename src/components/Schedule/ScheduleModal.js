@@ -28,14 +28,18 @@ const ScheduleModal = (props) => {
         </div>
       )
       if (formattedDateWOTime(new Date(x.date)) === formattedDateWOTime(new Date(props.date))) {
+        let time = ''
+        if (x.time[0] === '0') {
+          time = x.time.substring(1, x.time.length)
+        } else {
+          time = x.time
+        }
         return (
           <div key={x.id} className="mb-2">
-            <ul>
-              <li><span className="font-weight-bold">When:</span> {x.day}, {x.date_formatted} at {x.time}</li>
-              <li><span className="font-weight-bold">Who:</span> {x.opponent}</li>
-              <li><span className="font-weight-bold">Where:</span> {x.location}</li>
-            </ul>
-            {props.user ? btnJsx : null}
+            <p><span className="font-weight-bold">When:</span> {x.day}, {x.date_formatted} at {time}</p>
+            <p><span className="font-weight-bold">Who:</span> {x.opponent}</p>
+            <p><span className="font-weight-bold">Where:</span> {x.location}</p>
+            {props.user && props.user.id === x.user_id ? btnJsx : null}
             <hr />
           </div>
         )
