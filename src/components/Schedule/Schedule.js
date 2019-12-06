@@ -130,7 +130,7 @@ const Schedule = (props) => {
     if (events.length < 1) {
       return (
         <div>
-          <h1 className='text-center'>No events. Click 'New event' to add one.</h1>
+          <h1 className='text-center'>{'No events. Click \'New event\' to add one.'}</h1>
           {props.user ? <Link to='/create-event'><Button variant='success'>New Event</Button></Link> : null}
         </div>
       )
