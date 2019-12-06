@@ -283,9 +283,7 @@ const Post = (props) => {
     </Fragment>
   )
 
-  return (
-    <h1>{post === {} ? 'Loading...' : postJsx}</h1>
-  )
+  return postJsx
 }
 
 export default withRouter(Post)

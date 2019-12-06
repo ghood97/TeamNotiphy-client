@@ -105,8 +105,8 @@ const Schedule = (props) => {
   )
 
   if (width <= 576) {
-    if (events === []) {
-      return <h1>Loading...</h1>
+    if (events.length < 1) {
+      return <h1 className='text-center'>Loading...</h1>
     } else {
       return (
         <div>
@@ -127,8 +127,8 @@ const Schedule = (props) => {
       )
     }
   } else {
-    if (events === []) {
-      return <h1>Loading...</h1>
+    if (events.length < 1) {
+      return <h1 className='text-center'>Loading...</h1>
     } else {
       return (
         <div>

@@ -15,9 +15,9 @@ const Home = (props) => {
       })
       .catch(() => {
         props.alert({
-          heading: 'Loading...',
-          message: '',
-          variant: 'warning'
+          heading: 'Oops',
+          message: 'Something went wrong. Try again.',
+          variant: 'danger'
         })
       })
   }, [])
@@ -47,7 +47,7 @@ const Home = (props) => {
 
   return (
     <div>
-      {posts !== [] ? postJsx : <h1>Loading...</h1>}
+      {posts.length < 1 ? <h1 className='text-center'>Loading...</h1> : postJsx}
     </div>
   )
 }
