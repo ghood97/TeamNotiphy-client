@@ -43,7 +43,6 @@ const ScheduleModal = (props) => {
         } else {
           result = 'tieModal'
         }
-        console.log(x.own_score)
         return (
           <div key={x.id} className="mb-2">
             <p><span className="font-weight-bold">When:</span> {x.day}, {x.date_formatted} at {time}</p>
