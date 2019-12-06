@@ -106,7 +106,18 @@ const Schedule = (props) => {
 
   if (width <= 576) {
     if (events.length < 1) {
-      return <h1 className='text-center'>Loading...</h1>
+      const unAuthLoading = (
+        <h1 className='text-center'>{'No events. Sign-in to add an event'}</h1>
+      )
+      const authLoading = (
+        <div>
+          <h1 className='text-center'>{'No events. Click \'New event\' to add one.'}</h1>
+          <div className='d-flex flex-row justify-content-center'>
+            <Link to='/create-event'><Button variant='success'>New Event</Button></Link>
+          </div>
+        </div>
+      )
+      return props.user ? authLoading : unAuthLoading
     } else {
       return (
         <div>
@@ -128,12 +139,18 @@ const Schedule = (props) => {
     }
   } else {
     if (events.length < 1) {
-      return (
+      const unAuthLoading = (
+        <h1 className='text-center'>{'No events. Sign-in to add an event'}</h1>
+      )
+      const authLoading = (
         <div>
           <h1 className='text-center'>{'No events. Click \'New event\' to add one.'}</h1>
-          {props.user ? <Link to='/create-event'><Button variant='success'>New Event</Button></Link> : null}
+          <div className='d-flex flex-row justify-content-center'>
+            <Link to='/create-event'><Button variant='success'>New Event</Button></Link>
+          </div>
         </div>
       )
+      return props.user ? authLoading : unAuthLoading
     } else {
       return (
         <div>
