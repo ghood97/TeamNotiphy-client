@@ -47,7 +47,7 @@ const Home = (props) => {
 
   return (
     <div>
-      {posts !== [] ? postJsx : 'Loading...'}
+      {posts !== [] ? postJsx : <h1>Loading...</h1>}
     </div>
   )
 }
