@@ -1,5 +1,7 @@
 # TeamNotiphy client
 
+![screenshot](./public/images/app-screenshot.png)
+
 This application allows sports teams to communicate with each other and with other members of the organization. You can also keep track of your record and upcoming events. The inspiration for this project came from the Needham High School wrestling team. As a coach of this team, I have been searching for a better way to communicate with the athletes and their parents. I couldn't find one so I made my own!
 
 ## Links
@@ -70,9 +72,6 @@ DELETE | /events/:id
 - I would like to utilize a third-party api to get relative sports news
 <hr />
 
-
-## App Screenshot:
-![screenshot](./public/images/app-screenshot.png)
 
 ---
 
