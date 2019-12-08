@@ -245,7 +245,7 @@ const Post = (props) => {
           <h2>{post.title}</h2>
         </Card.Header>
         <Card.Body>
-          <Card.Text className="card-text">
+          <Card.Text as='h4' className="card-text">
             {post.text}
           </Card.Text>
         </Card.Body>

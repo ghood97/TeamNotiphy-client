@@ -29,9 +29,9 @@ const Home = (props) => {
     )
     return (
       <Card bg="secondary" text="white" key={post.id} className="my-4 posts-card">
-        <Card.Header as="h5">{post.title}</Card.Header>
+        <Card.Header as="h5" style={{ fontWeight: 'bold' }}>{post.title}</Card.Header>
         <Card.Body>
-          <Card.Text>{post.text}</Card.Text>
+          <Card.Text><h6>{post.text}</h6></Card.Text>
         </Card.Body>
         <Card.Footer className="d-flex flex-row">
           <div>
